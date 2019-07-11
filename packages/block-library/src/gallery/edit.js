@@ -2,7 +2,7 @@
  * External dependencies
  */
 import classnames from 'classnames';
-import { every, filter, forEach, map } from 'lodash';
+import { every, filter, forEach, map, some } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -206,6 +206,7 @@ class GalleryEdit extends Component {
 		const { images, columns = defaultColumnsNumber( attributes ), align, imageCrop, linkTo } = attributes;
 
 		const hasImages = !! images.length;
+		const hasImagesWithId = hasImages && some( images, ( { id } ) => id );
 
 		const controls = (
 			<BlockControls>
@@ -216,7 +217,7 @@ class GalleryEdit extends Component {
 							allowedTypes={ ALLOWED_MEDIA_TYPES }
 							multiple
 							gallery
-							value={ images.map( ( img ) => img.id ) }
+							value={ hasImagesWithId ? images.map( ( img ) => img.id ) : undefined }
 							render={ ( { open } ) => (
 								<IconButton
 									className="components-toolbar__control"
@@ -246,7 +247,7 @@ class GalleryEdit extends Component {
 				accept="image/*"
 				allowedTypes={ ALLOWED_MEDIA_TYPES }
 				multiple
-				value={ hasImages ? images : undefined }
+				value={ hasImagesWithId ? images : undefined }
 				onError={ this.onUploadError }
 				notices={ hasImages ? undefined : noticeUI }
 			/>
