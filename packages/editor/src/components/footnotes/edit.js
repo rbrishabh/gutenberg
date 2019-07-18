@@ -102,6 +102,7 @@ class Edit extends Component {
 			<BlockEdit
 				attributes={ this.getAttributes() }
 				setAttributes={ this.setAttributes }
+				className="wp-block-footnotes"
 			/>
 		);
 	}
