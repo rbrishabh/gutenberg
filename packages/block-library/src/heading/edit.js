@@ -12,6 +12,7 @@ import HeadingToolbar from './heading-toolbar';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { PanelBody } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { createBlock } from '@wordpress/blocks';
 import {
@@ -66,6 +67,10 @@ function HeadingEdit( {
 				} } />
 			</BlockControls>
 			<InspectorControls>
+				<PanelBody title={ __( 'Heading Settings' ) }>
+					<p>{ __( 'Level' ) }</p>
+					<HeadingToolbar minLevel={ 1 } maxLevel={ 7 } selectedLevel={ level } onChange={ ( newLevel ) => setAttributes( { level: newLevel } ) } />
+				</PanelBody>
 				<HeadingColorUI
 					setTextColor={ setTextColor }
 					textColorValue={ textColor.color }
