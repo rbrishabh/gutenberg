@@ -140,9 +140,9 @@ class EditorProvider extends Component {
 			canUserUseUnfilteredHTML,
 			children,
 			blocks,
-			selectionStart,
-			selectionEnd,
+			selection,
 			resetEditorBlocks,
+			resetEditorSelection,
 			isReady,
 			settings,
 			reusableBlocks,
@@ -166,8 +166,8 @@ class EditorProvider extends Component {
 				value={ blocks }
 				onInput={ resetEditorBlocksWithoutUndoLevel }
 				onChange={ resetEditorBlocks }
-				selectionStart={ selectionStart }
-				selectionEnd={ selectionEnd }
+				selection={ selection }
+				onChangeSelection={ resetEditorSelection }
 				settings={ editorSettings }
 				useSubRegistry={ false }
 			>
@@ -186,8 +186,7 @@ export default compose( [
 			canUserUseUnfilteredHTML,
 			__unstableIsEditorReady: isEditorReady,
 			getEditorBlocks,
-			getEditorSelectionStart,
-			getEditorSelectionEnd,
+			getEditorSelection,
 			__experimentalGetReusableBlocks,
 		} = select( 'core/editor' );
 		const { canUser } = select( 'core' );
@@ -196,8 +195,7 @@ export default compose( [
 			canUserUseUnfilteredHTML: canUserUseUnfilteredHTML(),
 			isReady: isEditorReady(),
 			blocks: getEditorBlocks(),
-			selectionStart: getEditorSelectionStart(),
-			selectionEnd: getEditorSelectionEnd(),
+			selection: getEditorSelection(),
 			reusableBlocks: __experimentalGetReusableBlocks(),
 			hasUploadPermissions: defaultTo( canUser( 'create', 'media' ), true ),
 		};
@@ -207,6 +205,7 @@ export default compose( [
 			setupEditor,
 			updatePostLock,
 			resetEditorBlocks,
+			resetEditorSelection,
 			updateEditorSettings,
 			__experimentalTearDownEditor,
 		} = dispatch( 'core/editor' );
@@ -216,12 +215,8 @@ export default compose( [
 			setupEditor,
 			updatePostLock,
 			createWarningNotice,
-			resetEditorBlocks( blocks, selectionStart, selectionEnd ) {
-				resetEditorBlocks( blocks, {
-					selectionStart,
-					selectionEnd,
-				} );
-			},
+			resetEditorBlocks,
+			resetEditorSelection,
 			updateEditorSettings,
 			resetEditorBlocksWithoutUndoLevel( blocks, selectionStart, selectionEnd ) {
 				resetEditorBlocks( blocks, {
