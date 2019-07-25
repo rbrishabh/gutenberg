@@ -364,21 +364,9 @@ _Returns_
 
 -   `Array`: Block list.
 
-<a name="getEditorSelectionEnd" href="#getEditorSelectionEnd">#</a> **getEditorSelectionEnd**
+<a name="getEditorSelection" href="#getEditorSelection">#</a> **getEditorSelection**
 
-Return the current selection end object.
-
-_Parameters_
-
--   _state_ `Object`: 
-
-_Returns_
-
--   `Array`: Selection end object.
-
-<a name="getEditorSelectionStart" href="#getEditorSelectionStart">#</a> **getEditorSelectionStart**
-
-Return the current selection start object.
+Return the current selection.
 
 _Parameters_
 
@@ -386,7 +374,7 @@ _Parameters_
 
 _Returns_
 
--   `Array`: Selection start object.
+-   `Array`: Selection.
 
 <a name="getEditorSettings" href="#getEditorSettings">#</a> **getEditorSettings**
 
@@ -1234,6 +1222,18 @@ _Parameters_
 
 -   _blocks_ `Array`: Block Array.
 -   _options_ `?Object`: Optional options.
+
+_Returns_
+
+-   `Object`: Action object
+
+<a name="resetEditorSelection" href="#resetEditorSelection">#</a> **resetEditorSelection**
+
+Returns an action object used to signal that the selection has been updated.
+
+_Parameters_
+
+-   _selection_ `Array`: Selection.
 
 _Returns_
 
