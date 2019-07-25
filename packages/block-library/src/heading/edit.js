@@ -12,7 +12,6 @@ import HeadingToolbar from './heading-toolbar';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { PanelBody } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { createBlock } from '@wordpress/blocks';
 import {
@@ -62,19 +61,11 @@ function HeadingEdit( {
 		<>
 			<BlockControls>
 				<HeadingToolbar align={ align } setAttributes={ setAttributes } minLevel={ 2 } maxLevel={ 5 } selectedLevel={ level } onChange={ ( newLevel ) => setAttributes( { level: newLevel } ) } />
+				<AlignmentToolbar value={ align } onChange={ ( nextAlign ) => {
+					setAttributes( { align: nextAlign } );
+				} } />
 			</BlockControls>
 			<InspectorControls>
-				<PanelBody title={ __( 'Heading Settings' ) }>
-					<p>{ __( 'Level' ) }</p>
-					<HeadingToolbar minLevel={ 1 } maxLevel={ 7 } selectedLevel={ level } onChange={ ( newLevel ) => setAttributes( { level: newLevel } ) } />
-					<p>{ __( 'Text Alignment' ) }</p>
-					<AlignmentToolbar
-						value={ align }
-						onChange={ ( nextAlign ) => {
-							setAttributes( { align: nextAlign } );
-						} }
-					/>
-				</PanelBody>
 				<HeadingColorUI
 					setTextColor={ setTextColor }
 					textColorValue={ textColor.color }
