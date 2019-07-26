@@ -87,6 +87,7 @@ class WritingFlow extends Component {
 		this.maintainCaretPosition = this.maintainCaretPosition.bind( this );
 		this.computeCaretRect = this.computeCaretRect.bind( this );
 		this.debouncedComputeCaretRect = debounce( this.computeCaretRect, 100 );
+		this.isSelectionEligibleForScroll = this.isSelectionEligibleForScroll.bind( this );
 
 		/**
 		 * Here a rectangle is stored while moving the caret vertically so
@@ -113,11 +114,9 @@ class WritingFlow extends Component {
 	}
 
 	computeCaretRect() {
-		if ( ! this.props.selectedBlockClientId ) {
-			return;
+		if ( this.isSelectionEligibleForScroll() ) {
+			this.caretRect = computeCaretRect();
 		}
-
-		this.caretRect = computeCaretRect();
 	}
 
 	maintainCaretPositionOnSelectionChange() {
@@ -130,16 +129,19 @@ class WritingFlow extends Component {
 		this.computeCaretRect();
 	}
 
+	isSelectionEligibleForScroll() {
+		return (
+			// There should be one and only one block selected.
+			this.props.selectedBlockClientId &&
+			// The component must contain the selection.
+			this.container.contains( document.activeElement ) &&
+			// The active element must be contenteditable.
+			document.activeElement.getAttribute( 'contenteditable' )
+		);
+	}
+
 	maintainCaretPosition() {
-		if ( ! this.caretRect ) {
-			return;
-		}
-
-		if ( ! this.container.contains( document.activeElement ) ) {
-			return;
-		}
-
-		if ( ! document.activeElement.getAttribute( 'contenteditable' ) ) {
+		if ( ! this.caretRect || ! this.isSelectionEligibleForScroll() ) {
 			return;
 		}
 
