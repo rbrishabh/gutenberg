@@ -9,19 +9,15 @@ import { every, filter, forEach, map } from 'lodash';
  */
 import { compose } from '@wordpress/compose';
 import {
-	IconButton,
 	PanelBody,
 	RangeControl,
 	SelectControl,
 	ToggleControl,
-	Toolbar,
 	withNotices,
 } from '@wordpress/components';
 import {
-	BlockControls,
 	BlockIcon,
 	MediaPlaceholder,
-	MediaUpload,
 	InspectorControls,
 } from '@wordpress/block-editor';
 import { Component } from '@wordpress/element';
@@ -207,30 +203,6 @@ class GalleryEdit extends Component {
 
 		const hasImages = !! images.length;
 
-		const controls = (
-			<BlockControls>
-				{ hasImages && (
-					<Toolbar>
-						<MediaUpload
-							onSelect={ this.onSelectImages }
-							allowedTypes={ ALLOWED_MEDIA_TYPES }
-							multiple
-							gallery
-							value={ images.map( ( img ) => img.id ) }
-							render={ ( { open } ) => (
-								<IconButton
-									className="components-toolbar__control"
-									label={ __( 'Edit gallery' ) }
-									icon="edit"
-									onClick={ open }
-								/>
-							) }
-						/>
-					</Toolbar>
-				) }
-			</BlockControls>
-		);
-
 		const mediaPlaceholder = (
 			<MediaPlaceholder
 				addToGallery={ hasImages }
@@ -253,17 +225,11 @@ class GalleryEdit extends Component {
 		);
 
 		if ( ! hasImages ) {
-			return (
-				<>
-					{ controls }
-					{ mediaPlaceholder }
-				</>
-			);
+			return mediaPlaceholder;
 		}
 
 		return (
 			<>
-				{ controls }
 				<InspectorControls>
 					<PanelBody title={ __( 'Gallery Settings' ) }>
 						{ images.length > 1 && <RangeControl
