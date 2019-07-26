@@ -262,6 +262,7 @@ export default compose( [
 			getMultiSelectedBlockClientIds,
 			hasMultiSelection,
 			getGlobalBlockCount,
+			isTyping,
 		} = select( 'core/block-editor' );
 
 		const { rootClientId } = ownProps;
@@ -275,7 +276,10 @@ export default compose( [
 			selectedBlockClientId: getSelectedBlockClientId(),
 			multiSelectedBlockClientIds: getMultiSelectedBlockClientIds(),
 			hasMultiSelection: hasMultiSelection(),
-			enableAnimation: getGlobalBlockCount() <= BLOCK_ANIMATION_THRESHOLD,
+			enableAnimation: (
+				! isTyping() &&
+				getGlobalBlockCount() <= BLOCK_ANIMATION_THRESHOLD
+			),
 		};
 	} ),
 	withDispatch( ( dispatch ) => {
