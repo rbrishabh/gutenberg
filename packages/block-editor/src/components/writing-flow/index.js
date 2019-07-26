@@ -141,7 +141,11 @@ class WritingFlow extends Component {
 	}
 
 	maintainCaretPosition() {
-		if ( ! this.caretRect || ! this.isSelectionEligibleForScroll() ) {
+		if ( ! this.caretRect ) {
+			return this.computeCaretRect();
+		}
+
+		if ( ! this.isSelectionEligibleForScroll() ) {
 			return;
 		}
 

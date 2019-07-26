@@ -421,8 +421,6 @@ describe( 'adding blocks', () => {
 			await page.keyboard.press( 'Enter' );
 		}
 
-		await page.keyboard.press( 'Enter' );
-
 		const initialPosition = await page.evaluate( () =>
 			wp.dom.computeCaretRect().y
 		);

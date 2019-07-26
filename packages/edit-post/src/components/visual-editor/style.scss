@@ -1,6 +1,7 @@
 .edit-post-visual-editor {
 	position: relative;
-	padding: 50px 0;
+	// Allow the page to be scrolled with the last block in the middle.
+	padding: 50px 0 50vh;
 
 	& .components-button {
 		font-family: $default-font;
