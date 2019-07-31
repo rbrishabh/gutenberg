@@ -7,7 +7,6 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
 import { Disabled } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
 
@@ -24,14 +23,14 @@ import BlockList from '../block-list';
  *
  * @return {WPElement} Rendered element.
  */
-function BlockPreview( { blocks, settings, className, isScaled } ) {
+export function BlockPreview( { blocks, settings, className, isScaled } ) {
 	if ( ! blocks ) {
 		return null;
 	}
 	return (
 		<Disabled
 			aria-hidden
-			className={ classnames(
+			className={ classnames(
 				'editor-block-preview',
 				'block-editor-block-preview',
 				'editor-styles-wrapper',
